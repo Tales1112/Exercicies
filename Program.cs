@@ -456,9 +456,77 @@ namespace Exercicies
         {
             return Regex.Matches(potato, "potato").Count;
         }
+        public static bool isPalindrome(string str)
+        {
+            var teste = new string(str.ToLower().ToCharArray().Reverse().ToArray());
+
+            return new string(str.ToLower().ToCharArray().Reverse().ToArray()) == str.ToLower();
+        }
+        public static string Century(int year)
+        {
+            var result = year.ToString();
+            string retorno = "";
+            var century = int.Parse($"{result[0]}{result[1]}");
+            if (year >= int.Parse($"{century}01") && year <= int.Parse($"{century + 1}00"))
+            {
+                retorno = century + 1 == 21 ? "st" : "th";
+                return $"{century + 1}" + retorno + " " +  "century";
+            }
+
+            retorno = century == 21 ? "st" : "th";
+            return $"{century}{retorno} century";
+        }
+        public static string Encrypt(string word)
+        {
+            
+            var StringArray = word.ToCharArray();
+            
+            Array.Reverse(StringArray);
+           
+            var result = StringArray.Select(x =>
+            {
+                switch (x)
+                {
+                    case 'a':
+                        return '0';
+                    case 'e':
+                        return '1';
+                    case 'i':
+                        return '2';
+                    case 'o':
+                        return '2';
+                    case 'u':
+                        return '3';
+
+                    default:
+                        return x;
+                }
+            }).ToArray();
+
+            return new string(result) + "aca";
+        }
+        public static string NoYelling(string phrase) => string.Join(' ', string.Join(' ', phrase.Split(" ").SkipLast(1)), new string(phrase.Split(" ").Last().ToCharArray().Distinct().ToArray())); 
+        public static int LargestGap(int[] arr)
+        {
+            var result = 0;
+            var teste = arr.OrderBy(x => x).ToArray();
+            for (int i = 0; i < teste.Length - 1; i++)
+            {
+                if(teste[i + 1] - teste[i] > result)
+                result = teste[i + 1] - teste[i];
+            }
+            return result;
+        }
+        public static int LargestGap2(int[] arr)
+        {
+            Array.Sort(arr);
+
+            var test =  arr.Skip(1).Select((s, sa) => s - arr[sa]).ToArray();
+            return 1;
+        }
         static void Main(string[] args)
         {
-            Console.WriteLine(Potatoes("potato"));
+            Console.WriteLine(LargestGap2(new int[] { 8, 11, 24, 2, 7, 4, 4, 25, 24, 14, 8, 0, 7 }));
         }
     }
 }
